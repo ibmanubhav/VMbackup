@@ -1,0 +1,64 @@
+var calculator = {
+  sum: function(a, b) {
+  return a + b; },
+  multiply: function(a, b){
+  return a*b;
+  },
+  divide:function(a,b){
+  return a/b;
+  }
+};
+
+// specs code
+describe("calculator", function() {
+    
+  it("sum method should be implemented", function() {
+    expect(calculator.sum).toBeDefined();
+  });
+ 
+  it("sum 1+2", function() {
+    expect(calculator.sum(1,2)).toEqual(3);
+  });
+  
+  it("multiplication of 2 and 3", function(){
+  expect(calculator.multiply(2,3)).toEqual(6);
+  })
+  
+  it("multiplication of 0 and 3", function(){
+  expect(calculator.multiply(0,3)).toEqual(0);
+  })
+  
+  it("multiplication of 2 and -6", function(){
+  expect(calculator.multiply(2,-3)).toEqual(-6);
+  })
+  
+  it("division of 12 and 4", function(){
+  expect(calculator.divide(12,4)).toEqual(3);
+  })
+  
+  it("-12/4", function(){
+  expect(calculator.divide(-12,4)).toEqual(-3);
+  })
+  
+  it("12/-4", function(){
+  expect(calculator.divide(12,-4)).toEqual(-3);
+  })
+  
+   it("0/4", function(){
+  expect(calculator.divide(0,4)).toEqual(0);
+  })
+  
+   it("12/0", function(){
+  expect(calculator.divide(12,0)).toEqual(Infinity);
+  })
+
+});
+
+var NOT_IMPLEMENTED = undefined;
+
+// load jasmine htmlReporter
+(function() {
+  var env = jasmine.getEnv();
+  env.addReporter(new jasmine.HtmlReporter());
+  env.execute();
+}());

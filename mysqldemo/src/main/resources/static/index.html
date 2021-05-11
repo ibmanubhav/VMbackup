@@ -1,0 +1,91 @@
+<!DOCTYPE html>
+<html>
+<head>
+<meta charset="ISO-8859-1">
+<title>Insert title here</title>
+<script type="text/javascript">
+	function sendData() {
+		function success(response){
+			if(!response.ok){
+				alert('error happned');
+				return;
+			}
+			return response.json();
+		}
+		function errorHandler(error){
+			console.log(error);	
+		}
+	const promise =	fetch('/user', {
+			method:'POST',
+			headers: {
+			      'Content-Type': 'application/json'
+			    },
+			    body:JSON.stringify({
+			    	name: document.getElementById('username').value,
+			    	email: document.getElementById('email').value,
+			    	mobile: document.getElementById('mobile').value,
+			    	dob: document.getElementById('dobid').value
+			    })
+		});
+	promise.then(success);
+	promise.then(function(data){
+		console.log(data);
+	});
+	promise.catch(function(error){
+		console.log(error);
+		});
+	}
+	
+	function getUsers(){
+		const promise = fetch('/user');
+		promise.then(function(response){
+			return response.json();
+		})
+		.then(function(users){
+			console.log(users);
+			const table = document.getElementById('users');
+			for(let index=0; index< users.length;index++){
+				console.log(users[index]);
+				const currentUser = users[index];
+				const row = document.createElement('tr');
+				const nameColumn = document.createElement('td');
+				nameColumn.append(currentUser.name);
+				row.appendChild(nameColumn);
+				table.appendChild(row);
+				
+				
+				//const row = document.createElement('tr');
+				//const nameColumn = document.createElement('td');
+			//	nameColumn.append(currentUser.email);
+				//row.appendChild(nameColumn);
+				//table.appendChild(row);
+			}
+		})
+	}
+	
+	
+</script>
+</head>
+<body>
+	<form>
+		<input id='username' placeholder="Name" required><br>
+		<input id='email'placeholder="EmailID"><br>
+		<input type='tel' id='mobile'placeholder="Mobile" pattern="{0-9}{10}" required><br>
+		<input type='date' id='dobid' placeholder="Date of Birth"><br>
+		
+
+	</form>
+	<button onclick="sendData()">Save</button><br>
+
+	<button onclick="getUsers()">Get Users</button>
+	<table>
+		<thead>
+			<td>Name</td>
+			<td>Email</td>
+		</thead>
+		<tbody id="users">
+		</tbody>
+	</table>
+
+</body>
+</html>

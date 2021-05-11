@@ -1,0 +1,31 @@
+
+// source code
+var calculator = {
+  sum: function(a,b){
+  return a+b;
+  }
+//  sum: function(a, b) { return a + b; }
+};
+
+// specs code
+describe("calculator", function() {
+    
+  it("sum method should be implemented", function() {
+    expect(calculator.sum).toBeDefined();
+  });
+ 
+  it("sum method should sum values", function() {
+  const result = calculator.sum(1,2);
+    expect(calculator.sum(1,2)).toEqual(3);
+  });
+
+});
+
+var NOT_IMPLEMENTED = undefined;
+
+// load jasmine htmlReporter
+(function() {
+  var env = jasmine.getEnv();
+  env.addReporter(new jasmine.HtmlReporter());
+  env.execute();
+}());
